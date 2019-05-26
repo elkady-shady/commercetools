@@ -5,6 +5,7 @@ import com.commercetools.stockhandling.dto.StockDTO;
 import com.commercetools.stockhandling.dto.StockStatisticsResponse;
 import com.commercetools.stockhandling.entity.Stock;
 import com.commercetools.stockhandling.entity.StockTransactionLog;
+import com.commercetools.stockhandling.mapper.StockMapper;
 import com.commercetools.stockhandling.repository.StockRepository;
 import com.commercetools.stockhandling.repository.StockTransactionLogRepository;
 import org.modelmapper.ModelMapper;
@@ -25,14 +26,14 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
 
     private StockRepository stockRepository;
 
-    private ModelMapper modelMapper;
+    private StockMapper stockMapper;
 
     @Autowired
     public StockTransactionLogServiceImpl(StockTransactionLogRepository stockTransactionLogRepository,
-                                          StockRepository stockRepository,ModelMapper modelMapper) {
+                                          StockRepository stockRepository,StockMapper stockMapper) {
         this.stockTransactionLogRepository = stockTransactionLogRepository;
         this.stockRepository = stockRepository;
-        this.modelMapper = modelMapper;
+        this.stockMapper = stockMapper;
     }
 
     @Override
@@ -79,7 +80,7 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
 
         highAvailableProducts.stream().forEach(obj -> {
             Stock stock = stockRepository.findByProductId((String) obj[0]).get();
-            StockDTO stockDTO = convertToDTO(stock);
+            StockDTO stockDTO = stockMapper.convertToDTO(stock);
 
             stockStatisticsResponse.getTopAvailableProducts().add(stockDTO);
         });
@@ -87,12 +88,5 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
         return stockStatisticsResponse;
     }
 
-    /**
-     *
-     * @param stock
-     * @return
-     */
-    private StockDTO convertToDTO(Stock stock) {
-        return modelMapper.map(stock,StockDTO.class);
-    }
+
 }

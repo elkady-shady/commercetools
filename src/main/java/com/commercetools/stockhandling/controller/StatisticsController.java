@@ -28,7 +28,7 @@ public class StatisticsController {
         if(!time.equals("today") && !time.equals("lastMonth")) {
             return new ResponseEntity<>(null,null,HttpStatus.BAD_REQUEST);
         }
-        
+
         StockStatisticsResponse stockStatisticsResponse = stockTransactionLogService.getStatistics(time);
 
         return new ResponseEntity<>(stockStatisticsResponse,null,HttpStatus.OK);

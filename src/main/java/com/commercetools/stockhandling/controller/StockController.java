@@ -3,6 +3,7 @@ package com.commercetools.stockhandling.controller;
 import com.commercetools.stockhandling.dto.StockAvailabilityResponse;
 import com.commercetools.stockhandling.dto.StockDTO;
 import com.commercetools.stockhandling.entity.Stock;
+import com.commercetools.stockhandling.mapper.StockMapper;
 import com.commercetools.stockhandling.service.StockService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class StockController {
 
     private StockService stockService;
 
-    private ModelMapper modelMapper;
+    private StockMapper stockMapper;
 
     @Autowired
-    public  StockController(StockService stockService,ModelMapper modelMapper) {
+    public  StockController(StockService stockService,StockMapper stockMapper) {
         this.stockService = stockService;
-        this.modelMapper = modelMapper;
+        this.stockMapper = stockMapper;
     }
 
     @PostMapping("/update")
@@ -36,18 +37,10 @@ public class StockController {
     public ResponseEntity<?> getStock(@RequestParam("productId") String productId){
         Stock stock = stockService.getStockByProductId(productId);
         LocalDateTime requestTime = LocalDateTime.now();
-        StockDTO stockDTO = convertToDTO(stock);
+        StockDTO stockDTO = stockMapper.convertToDTO(stock);
         StockAvailabilityResponse stockAvailabilityResponse = new StockAvailabilityResponse(requestTime,stockDTO);
 
         return new ResponseEntity<>(stockAvailabilityResponse,null,HttpStatus.OK);
     }
 
-    /**
-     *
-     * @param stock
-     * @return
-     */
-    private StockDTO convertToDTO(Stock stock) {
-        return modelMapper.map(stock,StockDTO.class);
-    }
 }
