@@ -44,17 +44,6 @@ public class StockServiceImpl implements StockService {
         return stockRepository.findByProductId(productId).get();
     }
 
-    /**
-     * Updates the selling of certain <code>productId</code> as it checks if transaction is today updates today's selling
-     * in case it passes midnight of today it moves the values of today's selling and adds it to <code>itemsSoldCurrentMonth</code>
-     * in case transaction occurred in the next month it moves the value of <code>itemsSoldCurrentMonth</code>
-     * to <code>itemsSoldNextMonth</code>
-     * @param productId
-     * @param changeInQuantity
-     */
-    private void updateSellingStatistics(String productId, long changeInQuantity) {
-
-    }
 
 
 }

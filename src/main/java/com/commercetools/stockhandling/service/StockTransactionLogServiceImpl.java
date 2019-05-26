@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -48,7 +47,7 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
      * @throws ParseException
      */
     @Override
-    public StockStatisticsResponse getStatistics(String time) throws ParseException {
+    public StockStatisticsResponse getStatistics(String time) {
         LocalDateTime requestTime = LocalDateTime.now();
         StockStatisticsResponse stockStatisticsResponse = new StockStatisticsResponse();
 
@@ -84,7 +83,7 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
 
             stockStatisticsResponse.getTopAvailableProducts().add(stockDTO);
         });
-        
+
         return stockStatisticsResponse;
     }
 
