@@ -1,0 +1,23 @@
+version: '3'
+
+services:  
+    stockdb:
+        image: postgres:10 
+        environment:
+          POSTGRES_PASSWORD: 123456
+          POSTGRES_USER: commercetools
+          POSTGRES_DB: stockdb
+
+    stockService:
+        build:
+            context: .
+            dockerfile: Dockerfile-stock
+        image: stock
+        expose:
+            - 8080
+        ports:
+            - 8080:8080
+        depends_on:
+            - stockdb
+                  
+         

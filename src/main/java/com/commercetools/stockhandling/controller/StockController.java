@@ -5,7 +5,6 @@ import com.commercetools.stockhandling.dto.StockDTO;
 import com.commercetools.stockhandling.entity.Stock;
 import com.commercetools.stockhandling.mapper.StockMapper;
 import com.commercetools.stockhandling.service.StockService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
