@@ -1,7 +1,5 @@
 package com.commercetools.stockhandling.dto;
 
-import com.commercetools.stockhandling.entity.Stock;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

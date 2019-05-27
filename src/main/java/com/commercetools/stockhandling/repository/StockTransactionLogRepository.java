@@ -1,6 +1,5 @@
 package com.commercetools.stockhandling.repository;
 
-import com.commercetools.stockhandling.entity.Stock;
 import com.commercetools.stockhandling.entity.StockTransactionLog;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

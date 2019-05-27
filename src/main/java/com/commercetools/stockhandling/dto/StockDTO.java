@@ -1,9 +1,5 @@
 package com.commercetools.stockhandling.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 import java.time.LocalDateTime;
 
 public class StockDTO {

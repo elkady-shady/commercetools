@@ -8,12 +8,10 @@ import com.commercetools.stockhandling.entity.StockTransactionLog;
 import com.commercetools.stockhandling.mapper.StockMapper;
 import com.commercetools.stockhandling.repository.StockRepository;
 import com.commercetools.stockhandling.repository.StockTransactionLogRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -45,6 +43,7 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
     public List<Object[]> getTopSellingProducts(String time) {
         LocalDateTime startDate;
         LocalDateTime endDate;
+
         if(time.equals("today")) {
             startDate = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
             endDate = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
