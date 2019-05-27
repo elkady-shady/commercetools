@@ -1,14 +1,15 @@
 package com.commercetools.stockhandling.service;
 
-import com.commercetools.stockhandling.dto.StockStatisticsResponse;
 import com.commercetools.stockhandling.entity.StockTransactionLog;
 
-import java.text.ParseException;
+import java.util.List;
 
 
 public interface StockTransactionLogService {
 
     void createStockTransactionLog(StockTransactionLog stockTransactionLog);
 
-    StockStatisticsResponse getStatistics(String time) throws ParseException;
+    List<Object[]> getTopSellingProducts(String time);
+
+    List<Object[]> getHighAvailableStocks(String time);
 }

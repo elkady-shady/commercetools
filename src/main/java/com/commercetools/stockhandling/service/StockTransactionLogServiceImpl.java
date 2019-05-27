@@ -41,51 +41,40 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
         stockTransactionLogRepository.save(stockTransactionLog);
     }
 
-    /**
-     *
-     * @param time
-     * @return
-     * @throws ParseException
-     */
     @Override
-    public StockStatisticsResponse getStatistics(String time) {
-        LocalDateTime requestTime = LocalDateTime.now();
-        StockStatisticsResponse stockStatisticsResponse = new StockStatisticsResponse();
-
+    public List<Object[]> getTopSellingProducts(String time) {
         LocalDateTime startDate;
         LocalDateTime endDate;
         if(time.equals("today")) {
             startDate = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
             endDate = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
-
         } else {
             startDate = LocalDateTime.of(LocalDate.now().minusMonths(1).withDayOfMonth(1), LocalTime.MIN);
             endDate = LocalDateTime.of(LocalDate.now().minusMonths(1)
-                            .withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth()), LocalTime.MAX);
+                    .withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth()), LocalTime.MAX);
         }
 
         List<Object[]> topSellingProducts = stockTransactionLogRepository.getTopSelling(startDate,endDate ,PageRequest.of(0,3));
+
+        return topSellingProducts;
+    }
+
+    @Override
+    public List<Object[]> getHighAvailableStocks(String time) {
+        LocalDateTime startDate;
+        LocalDateTime endDate;
+        if(time.equals("today")) {
+            startDate = LocalDateTime.of(LocalDate.now(), LocalTime.MIN);
+            endDate = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
+        } else {
+            startDate = LocalDateTime.of(LocalDate.now().minusMonths(1).withDayOfMonth(1), LocalTime.MIN);
+            endDate = LocalDateTime.of(LocalDate.now().minusMonths(1)
+                    .withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth()), LocalTime.MAX);
+        }
+
         List<Object[]> highAvailableProducts = stockTransactionLogRepository.getHighestAvailable(startDate,endDate,PageRequest.of(0,3));
 
-        stockStatisticsResponse.setRequestTimestamp(requestTime);
-        stockStatisticsResponse.setTime(time);
-
-        topSellingProducts.stream().forEach(obj ->{
-            ProductSellingDTO productSellingDTO = new ProductSellingDTO();
-            productSellingDTO.setProductId((String) obj[0]);
-            productSellingDTO.setItemsSold(Math.abs((Long)obj[1]));
-
-            stockStatisticsResponse.getTopSellingProducts().add(productSellingDTO);
-        });
-
-        highAvailableProducts.stream().forEach(obj -> {
-            Stock stock = stockRepository.findByProductId((String) obj[0]).get();
-            StockDTO stockDTO = stockMapper.convertToDTO(stock);
-
-            stockStatisticsResponse.getTopAvailableProducts().add(stockDTO);
-        });
-
-        return stockStatisticsResponse;
+        return highAvailableProducts;
     }
 
 
