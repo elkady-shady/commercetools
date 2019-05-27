@@ -39,6 +39,11 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
         stockTransactionLogRepository.save(stockTransactionLog);
     }
 
+    /**
+     * Get top three selling products in certain time, allowed time: [today,lastMonth]
+     * @param time
+     * @return
+     */
     @Override
     public List<Object[]> getTopSellingProducts(String time) {
         LocalDateTime startDate;
@@ -58,6 +63,11 @@ public class StockTransactionLogServiceImpl implements StockTransactionLogServic
         return topSellingProducts;
     }
 
+    /**
+     * Get top three high available stock in certain time, allowed time: [today,lastMonth]
+     * @param time
+     * @return
+     */
     @Override
     public List<Object[]> getHighAvailableStocks(String time) {
         LocalDateTime startDate;

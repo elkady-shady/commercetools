@@ -23,6 +23,10 @@ public class StockServiceImpl implements StockService {
         this.stockTransactionLogService = stockTransactionLogService;
     }
 
+    /**
+     * Updates the quantity of a certain product' stock
+     * @param stockDTO
+     */
     @Override
     @Transactional
     public void updateStock(StockDTO stockDTO) {
@@ -39,6 +43,11 @@ public class StockServiceImpl implements StockService {
         stockTransactionLogService.createStockTransactionLog(stockTransactionLog);
     }
 
+    /**
+     * Retrieves <Code>Stock</Code> bu the <Code>productId</Code>
+     * @param productId
+     * @return
+     */
     @Override
     public Stock getStockByProductId(String productId) {
         return stockRepository.findByProductId(productId).get();
